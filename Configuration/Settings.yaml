@@ -1,11 +1,22 @@
 Sitegeist:
   MoveAlong:
+    #
+    #  You need to active this feature explicitly in your site package
+    #
     enable: FALSE
 
+    #
+    #  Define a couple of rules on how to determine your 404 page. This gives you the option
+    #  to handle dimensions or differently styled sections of your site.
+    #
     rules:
+      # Your rules are named, so they can be overridden or deactivated
       all:
+        # Each rule has a position, so you can order them according to your needs
         position: 'end 1000'
+        # This rule will be applied to any Url matching this regex pattern
         pattern: '.*'
+        # Provide a requestPath (a.k.a Url) to the page that represents your 404 Page
         target: '404.html'
 
 TYPO3:
