@@ -11,15 +11,36 @@
  */
 
  /**
-  * Apply 404 status code in case of hitting a pre-configured 404 page
+  * Turn the response status code into a case
   */
 prototype(TYPO3.Neos:Page) {
   httpResponseHead {
-    statusCode = 404
-    statusCode.@if {
-      featureIsEnabled = ${Configuration.setting('Sitegeist.MoveAlong.enable') == true}
-      isNotFoundDocument = ${documentNode.properties.uriPathSegment == '404'}
-      onlyRenderWhenInLiveWorkspace = ${documentNode.context.workspace.name == 'live'}
+    statusCode = TYPO3.TypoScript:Case {
+
+      //
+      // Match pre-configured 404 Pages
+      //
+      is404Page = Sitegeist.MoveAlong:Match404Page
+
+      default {
+        @position = 'end'
+        condition = TRUE
+        renderer = 200
+      }
     }
   }
+}
+
+/**
+ * Apply 404 status code in case of hitting a pre-configured 404 page
+ */
+prototype(Sitegeist.MoveAlong:Match404Page) < prototype(TYPO3.TypoScript:Matcher) {
+  condition = TRUE
+  condition.@process {
+    featureIsEnabled = ${value && (Configuration.setting('Sitegeist.MoveAlong.enable') == true)}
+    isNotFoundDocument = ${value && documentNode.properties.uriPathSegment == '404'}
+    onlyRenderWhenInLiveWorkspace = ${value && documentNode.context.workspace.name == 'live'}
+  }
+
+  renderer = 404
 }

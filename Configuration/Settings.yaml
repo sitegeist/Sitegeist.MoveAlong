@@ -3,7 +3,8 @@ Sitegeist:
     #
     #  You need to active this feature explicitly in your site package
     #
-    enable: FALSE
+
+    # enable: FALSE
 
     #
     #  Define a couple of rules on how to determine your 404 page. This gives you the option
