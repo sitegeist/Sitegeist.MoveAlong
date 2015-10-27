@@ -1,7 +1,7 @@
 {
     "name": "sitegeist/movealong",
     "type": "typo3-flow-package",
-    "description": "Add description here",
+    "description": "Configure fallback nodes in case of 404",
     "require": {
         "typo3/flow": "*"
     },

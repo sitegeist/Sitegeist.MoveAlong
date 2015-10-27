@@ -1,3 +1,7 @@
+#
+# Configure routes for fallback handling.
+# This is needed for Neos routing configurations that provide a defaultUriSuffix.
+#
 -
   name:  'Frontend'
   uriPattern: '<FrontendSubRoutes>'

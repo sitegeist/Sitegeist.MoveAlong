@@ -20,7 +20,8 @@ use Sitegeist\MoveAlong\Domain\Service\RuleService;
 /**
  * Handles all routes that are not covered by neos Routing due to missinf defaultSuffix
  */
-class NotFoundHandlingFrontendNodeRoutePartHandler extends FrontendNodeRoutePartHandler {
+class NotFoundHandlingFrontendNodeRoutePartHandler extends FrontendNodeRoutePartHandler
+{
 
     /**
      * @Flow\Inject

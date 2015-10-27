@@ -1,19 +1,40 @@
 <?php
 namespace Sitegeist\MoveAlong\Domain\Service;
 
+/*
+ * Copyright notice
+ *
+ * (c) 2015 Wilhelm Behncke <behncke@sitegeist.de>
+ * All rights reserved
+ *
+ * This file is part of the Sitegeist/MoveAlong project under MIT License.
+ *
+ * For the full copyright and license information, please read the
+ * LICENSE.md file that was distributed with this source code.
+ */
+
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Utility\PositionalArraySorter;
 
 /**
  * @Flow\Scope("singleton")
  */
-class RuleService {
+class RuleService
+{
 
   /**
+   * The configured rules
+   *
    * @Flow\InjectConfiguration(path="rules")
+   * @var array
    */
   protected $rules = array();
 
+  /**
+   * Internal cache for sorted rules
+   *
+   * @var array
+   */
   protected $sortedRules = array();
 
   /**

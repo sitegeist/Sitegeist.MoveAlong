@@ -29,9 +29,12 @@ use Sitegeist\MoveAlong\Domain\Service\RuleService;
 class FrontendNodeRoutePartHandlerAspect
 {
     /**
+     * Feature Flag
+     *
      * @Flow\InjectConfiguration(path="enable")
+     * @var boolean
      */
-    protected $isEnabled = TRUE;
+    protected $isEnabled = FALSE;
 
     /**
      * @Flow\Inject
