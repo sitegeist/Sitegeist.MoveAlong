@@ -1,0 +1,15 @@
+Sitegeist:
+  MoveAlong:
+    enable: FALSE
+
+    rules:
+      all:
+        position: 'end 1000'
+        pattern: '.*'
+        target: '404.html'
+
+TYPO3:
+  Neos:
+    typoScript:
+      autoInclude:
+        'Sitegeist.MoveAlong': TRUE
