@@ -9,13 +9,10 @@ use TYPO3\Flow\Utility\PositionalArraySorter;
  */
 class RuleService {
 
-  protected $rules = array(
-    'all' => array(
-      'position' => 'end 1000',
-      'pattern' => '.*',
-      'target' => '404'
-    )
-  );
+  /**
+   * @Flow\InjectConfiguration(path="rules")
+   */
+  protected $rules = array();
 
   protected $sortedRules = array();
 

@@ -28,7 +28,9 @@ use Sitegeist\MoveAlong\Domain\Service\RuleService;
  */
 class FrontendNodeRoutePartHandlerAspect
 {
-
+    /**
+     * @Flow\InjectConfiguration(path="enable")
+     */
     protected $isEnabled = TRUE;
 
     /**
@@ -74,6 +76,4 @@ class FrontendNodeRoutePartHandlerAspect
 
         return $joinPoint->getAdviceChain()->proceed($joinPoint);
     }
-
-
 }

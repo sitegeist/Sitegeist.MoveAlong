@@ -16,8 +16,9 @@ Sitegeist:
         position: 'end 1000'
         # This rule will be applied to any Url matching this regex pattern
         pattern: '.*'
-        # Provide a requestPath (a.k.a Url) to the page that represents your 404 Page
-        target: '404.html'
+        # Provide a requestPath (a.k.a Url) to the page that represents your 404 Page. If your routes
+        # have a defaultSuffix it needs to be omitted
+        target: '404'
 
 TYPO3:
   Neos:
