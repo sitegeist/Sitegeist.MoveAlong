@@ -41,7 +41,8 @@ class NotFoundHandlingFrontendNodeRoutePartHandler extends FrontendNodeRoutePart
         $rule = $this->rulesService->findMatchingRule($requestPath);
 
         if ($rule !== NULL) {
-            return parent::convertRequestPathToNode($rule['target']);
+            $targetPath = preg_replace('!' . $rule['pattern'] . '!', $rule['target'], $requestPath);
+            return parent::convertRequestPathToNode($targetPath);
         }
 
         return parent::convertRequestPathToNode($requestPath);

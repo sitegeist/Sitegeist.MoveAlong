@@ -69,7 +69,8 @@ class FrontendNodeRoutePartHandlerAspect
                 $rule = $this->rulesService->findMatchingRule($requestPath);
 
                 if ($rule !== NULL) {
-                    $joinPoint->setMethodArgument('requestPath', $rule['target']);
+                    $targetPath = preg_replace('!' . $rule['pattern'] . '!', $rule['target'], $requestPath);
+                    $joinPoint->setMethodArgument('requestPath', $targetPath);
                     return $joinPoint->getAdviceChain()->proceed($joinPoint);
                 }
             }

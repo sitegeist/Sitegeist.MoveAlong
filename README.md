@@ -80,6 +80,17 @@ Sitegeist:
         target: 'de/404'
 ```
 
+The rule pattern and targets support pattern matching and replacement:
+
+```yaml
+Sitegeist:
+  MoveAlong:
+    rules:
+      main:
+        pattern: '^(en|de)\/.*'
+        target: '$1/404'
+```
+
 !!! Regardles of any existing `defaultUriSuffix` configuration, you need to omit that uri part. So, if your 404 page is reachable via `404.html`, you need to configure `404` as your target.
 
 If you just want to override the default behavior, you can overwrite the pre-configured `all` rule:
