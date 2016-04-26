@@ -38,11 +38,24 @@ class NotFoundHandlingFrontendNodeRoutePartHandler extends FrontendNodeRoutePart
      */
     protected function convertRequestPathToNode($requestPath)
     {
-        $rule = $this->rulesService->findMatchingRule($requestPath);
-
-        if ($rule !== NULL) {
-            $targetPath = preg_replace('!' . $rule['pattern'] . '!', $rule['target'], $requestPath);
-            return parent::convertRequestPathToNode($targetPath);
+        $rules = $this->rulesService->findMatchingRules($requestPath);
+        if (count($rules) > 0) {
+            foreach ($rules as $rule) {
+                try {
+                    $targetPath = preg_replace('!' . $rule['pattern'] . '!', $rule['target'], $requestPath);
+                    return parent::convertRequestPathToNode($targetPath);
+                } catch (\TYPO3\Neos\Routing\Exception\NoWorkspaceException $e){
+                    // the default exceptions of convertRequestPathToNode are a ignored here
+                } catch (\TYPO3\Neos\Routing\Exception\NoSiteException $e){
+                    // the default exceptions of convertRequestPathToNode are a ignored here
+                } catch (\TYPO3\Neos\Routing\Exception\NoSuchNodeException $e){
+                    // the default exceptions of convertRequestPathToNode are a ignored here
+                } catch (\TYPO3\Neos\Routing\Exception\NoSiteNodeException $e){
+                    // the default exceptions of convertRequestPathToNode are a ignored here
+                } catch (\TYPO3\Neos\Routing\Exception\InvalidRequestPathException $e){
+                    // the default exceptions of convertRequestPathToNode are a ignored here
+                }
+            }
         }
 
         return parent::convertRequestPathToNode($requestPath);
