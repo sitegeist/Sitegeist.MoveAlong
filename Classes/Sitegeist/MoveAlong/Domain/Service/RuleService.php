@@ -22,53 +22,53 @@ use TYPO3\Flow\Utility\PositionalArraySorter;
 class RuleService
 {
 
-  /**
-   * The configured rules
-   *
-   * @Flow\InjectConfiguration(path="rules")
-   * @var array
-   */
-  protected $rules = array();
+    /**
+     * The configured rules
+     *
+     * @Flow\InjectConfiguration(path="rules")
+     * @var array
+     */
+    protected $rules = array();
 
-  /**
-   * Internal cache for sorted rules
-   *
-   * @var array
-   */
-  protected $sortedRules = array();
+    /**
+     * Internal cache for sorted rules
+     *
+     * @var array
+     */
+    protected $sortedRules = array();
 
-  /**
-   * Find a matching configured rule for the given request path
-   *
-   * @param string $requestPath
-   * @return array|NULL
-   */
-  public function findMatchingRule($requestPath)
-  {
-      $rules = $this->getSortedRules();
+    /**
+     * Find the matching rules for the given request path
+     *
+     * @param string $requestPath
+     * @return array
+     */
+    public function findMatchingRules($requestPath)
+    {
+        $rules = $this->getSortedRules();
+        $matchingRules = [];
 
-      foreach ($rules as $rule) {
-          if (preg_match('!' . $rule['pattern'] . '!', $requestPath)) {
-              return $rule;
-          }
-      }
+        foreach ($rules as $rule) {
+            if (preg_match('!' . $rule['pattern'] . '!', $requestPath)) {
+                $matchingRules[] = $rule;
+            }
+        }
+        return $matchingRules;
+    }
 
-      return NULL;
-  }
+    /**
+     * Sort configured rules lazily with flows positional sorting algorithm
+     *
+     * @return array
+     */
+    protected function getSortedRules()
+    {
+        if (empty($this->sortedRules)) {
+            $positionalArraySorter = new PositionalArraySorter($this->rules);
+            $this->sortedRules = $positionalArraySorter->toArray();
+        }
 
-  /**
-   * Sort configured rules lazily with flows positional sorting algorithm
-   *
-   * @return array
-   */
-  protected function getSortedRules()
-  {
-      if (empty($this->sortedRules)) {
-        $positionalArraySorter = new PositionalArraySorter($this->rules);
-        $this->sortedRules = $positionalArraySorter->toArray();
-      }
-
-      return $this->sortedRules;
-  }
+        return $this->sortedRules;
+    }
 
 }
