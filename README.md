@@ -43,7 +43,7 @@ composer update sitegeist/movealong
 
 ### Routes
 
-If your Neos Installation comes with a Routes configuration that provides a `defaultUriSuffix` (which is the default in Neos), you need to configure the following Route in your projects Routes.yaml:
+To use the package you have to add the following segment to the end of your global Routes.yaml.
 
 ```yaml
 -
