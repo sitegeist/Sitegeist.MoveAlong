@@ -16,8 +16,13 @@ namespace Sitegeist\MoveAlong\Routing;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Neos\Routing\FrontendNodeRoutePartHandler;
 use Sitegeist\MoveAlong\Domain\Service\RuleService;
+use TYPO3\Neos\Routing\Exception\NoWorkspaceException;
+use TYPO3\Neos\Routing\Exception\NoSiteException;
+use TYPO3\Neos\Routing\Exception\NoSuchNodeException;
+use TYPO3\Neos\Routing\Exception\NoSiteNodeException;
+use TYPO3\Neos\Routing\Exception\InvalidRequestPathException;
 
-/**
+                    /**
  * Handles all routes that are not covered by neos Routing due to missinf defaultSuffix
  */
 class NotFoundHandlingFrontendNodeRoutePartHandler extends FrontendNodeRoutePartHandler
@@ -44,15 +49,15 @@ class NotFoundHandlingFrontendNodeRoutePartHandler extends FrontendNodeRoutePart
                 try {
                     $targetPath = preg_replace('!' . $rule['pattern'] . '!', $rule['target'], $requestPath);
                     return parent::convertRequestPathToNode($targetPath);
-                } catch (\TYPO3\Neos\Routing\Exception\NoWorkspaceException $e){
+                } catch (NoWorkspaceException $e){
                     // the default exceptions of convertRequestPathToNode are a ignored here
-                } catch (\TYPO3\Neos\Routing\Exception\NoSiteException $e){
+                } catch (NoSiteException $e){
                     // the default exceptions of convertRequestPathToNode are a ignored here
-                } catch (\TYPO3\Neos\Routing\Exception\NoSuchNodeException $e){
+                } catch (NoSuchNodeException $e){
                     // the default exceptions of convertRequestPathToNode are a ignored here
-                } catch (\TYPO3\Neos\Routing\Exception\NoSiteNodeException $e){
+                } catch (NoSiteNodeException $e){
                     // the default exceptions of convertRequestPathToNode are a ignored here
-                } catch (\TYPO3\Neos\Routing\Exception\InvalidRequestPathException $e){
+                } catch (InvalidRequestPathException $e){
                     // the default exceptions of convertRequestPathToNode are a ignored here
                 }
             }
