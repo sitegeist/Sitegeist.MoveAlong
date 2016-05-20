@@ -4,7 +4,9 @@
 
 ## Summary
 
-This package enables editable 404 pages. It allows you to configure several 404 pages in the page tree, in case you need different content or styling in different situations.
+This package enables editable 404 pages. It allows you to configure several 404 pages in the page tree, in case you need different content or styling in different situations. 
+
+**ATTENTION: This package will add a route via Settings.yaml. This route should always be the last configured Route in your installation.** 
 
 ## Installation
 
