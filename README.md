@@ -41,21 +41,6 @@ composer update sitegeist/movealong
 
 ## Usage
 
-### Routes
-
-To use the package you have to add the following segment to the end of your global Routes.yaml.
-
-```yaml
--
-  name: 'Sitegeist.MoveAlong'
-  uriPattern: '<SitegeistMoveAlongSubroutes>'
-  subRoutes:
-    'SitegeistMoveAlongSubroutes':
-      package: 'Sitegeist.MoveAlong'
-```
-
-!!! This configuration needs to be put at the end of your Routes.yaml - it will handle all Requests that are coming through, so any route beneath it won't match anymore.
-
 ### Settings
 
 To activate Sitegeist.MoveAlong, the smallest configuration you're going to need is the following:
