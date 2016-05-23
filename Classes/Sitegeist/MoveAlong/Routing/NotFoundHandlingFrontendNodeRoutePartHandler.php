@@ -27,6 +27,13 @@ use TYPO3\Neos\Routing\Exception\InvalidRequestPathException;
  */
 class NotFoundHandlingFrontendNodeRoutePartHandler extends FrontendNodeRoutePartHandler
 {
+    /**
+     * The configured rules
+     *
+     * @Flow\InjectConfiguration(path="enable")
+     * @var array
+     */
+    protected $enable;
 
     /**
      * @Flow\Inject
@@ -43,22 +50,24 @@ class NotFoundHandlingFrontendNodeRoutePartHandler extends FrontendNodeRoutePart
      */
     protected function convertRequestPathToNode($requestPath)
     {
-        $rules = $this->rulesService->findMatchingRules($requestPath);
-        if (count($rules) > 0) {
-            foreach ($rules as $rule) {
-                try {
-                    $targetPath = preg_replace('!' . $rule['pattern'] . '!', $rule['target'], $requestPath);
-                    return parent::convertRequestPathToNode($targetPath);
-                } catch (NoWorkspaceException $e){
-                    // the default exceptions of convertRequestPathToNode are a ignored here
-                } catch (NoSiteException $e){
-                    // the default exceptions of convertRequestPathToNode are a ignored here
-                } catch (NoSuchNodeException $e){
-                    // the default exceptions of convertRequestPathToNode are a ignored here
-                } catch (NoSiteNodeException $e){
-                    // the default exceptions of convertRequestPathToNode are a ignored here
-                } catch (InvalidRequestPathException $e){
-                    // the default exceptions of convertRequestPathToNode are a ignored here
+        if ($this->enable === true) {
+            $rules = $this->rulesService->findMatchingRules($requestPath);
+            if (count($rules) > 0) {
+                foreach ($rules as $rule) {
+                    try {
+                        $targetPath = preg_replace('!' . $rule['pattern'] . '!', $rule['target'], $requestPath);
+                        return parent::convertRequestPathToNode($targetPath);
+                    } catch (NoWorkspaceException $e) {
+                        // the default exceptions of convertRequestPathToNode are a ignored here
+                    } catch (NoSiteException $e) {
+                        // the default exceptions of convertRequestPathToNode are a ignored here
+                    } catch (NoSuchNodeException $e) {
+                        // the default exceptions of convertRequestPathToNode are a ignored here
+                    } catch (NoSiteNodeException $e) {
+                        // the default exceptions of convertRequestPathToNode are a ignored here
+                    } catch (InvalidRequestPathException $e) {
+                        // the default exceptions of convertRequestPathToNode are a ignored here
+                    }
                 }
             }
         }

@@ -4,7 +4,9 @@
 
 ## Summary
 
-This package enables editable 404 pages. It allows you to configure several 404 pages in the page tree, in case you need different content or styling in different situations.
+This package enables editable 404 pages. It allows you to configure several 404 pages in the page tree, in case you need different content or styling in different situations. 
+
+**ATTENTION: This package will add a route via Settings.yaml. This route should always be the last configured Route in your installation.** 
 
 ## Installation
 
@@ -40,21 +42,6 @@ composer update sitegeist/movealong
 ```
 
 ## Usage
-
-### Routes
-
-To use the package you have to add the following segment to the end of your global Routes.yaml.
-
-```yaml
--
-  name: 'Sitegeist.MoveAlong'
-  uriPattern: '<SitegeistMoveAlongSubroutes>'
-  subRoutes:
-    'SitegeistMoveAlongSubroutes':
-      package: 'Sitegeist.MoveAlong'
-```
-
-!!! This configuration needs to be put at the end of your Routes.yaml - it will handle all Requests that are coming through, so any route beneath it won't match anymore.
 
 ### Settings
 
