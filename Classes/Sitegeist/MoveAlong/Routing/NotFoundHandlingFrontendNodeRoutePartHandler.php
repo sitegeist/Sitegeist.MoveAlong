@@ -50,7 +50,7 @@ class NotFoundHandlingFrontendNodeRoutePartHandler extends FrontendNodeRoutePart
      */
     protected function convertRequestPathToNode($requestPath)
     {
-        if ($this->enable === TRUE) {
+        if ($this->enable === true) {
             $rules = $this->rulesService->findMatchingRules($requestPath);
             if (count($rules) > 0) {
                 foreach ($rules as $rule) {
