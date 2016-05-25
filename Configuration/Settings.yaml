@@ -28,7 +28,10 @@ TYPO3:
         'Sitegeist.MoveAlong': TRUE
 
   Flow:
-    mvc:
-      routes:
-        'Sitegeist.MoveAlong':
-          position: 'end 1000'
+    http:
+      chain:
+        'process':
+          chain:
+            'move-along':
+              position: 'before dispatching'
+              component: 'Sitegeist\MoveAlong\Http\Component\MoveAlongRoutingComponent'
