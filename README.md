@@ -8,9 +8,16 @@ This package enables editable 404 pages. It allows you to configure several 404 
 
 **ATTENTION: This package will add a http-component via Settings.yaml. This component will try to find a matching 404 page for the current path an override the http-request accordingly.** 
 
+### Authors & Sponsors
+
+* Wilhelm Behncke - behncke@sitegeist.de
+* Martin Ficzel - ficzel@sitegeist.de
+
+*The development and the public-releases of this package is generously sponsored by our employer http://www.sitegeist.de.*
+
 ## Installation
 
-For now this package is not listed at packagist.org, so it needs to be configured via the `repositories` option in your composer.json.
+For now this package is not listed at packagist.org yet, so it needs to be configured via the `repositories` option in your composer.json.
 
 ```json
 {
@@ -28,12 +35,10 @@ You can then require it as a regular dependency:
 ```json
 {
   "dependencies": {
-    "sitegeist/movealong": "@dev"
+    "sitegeist/movealong": "~1.0.0"
   }
 }
 ```
-
-Currently `@dev` is recommended, since this package is still under development. Later on it should be replaced by the according semver string.
 
 After you finished configuring your composer.json, run the following command to retrieve the package:
 
