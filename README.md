@@ -23,7 +23,7 @@ For now this package is not listed at packagist.org yet, so it needs to be confi
 {
   "repositories": [
     {
-      "url": "ssh://git@git.sitegeist.de:40022/sitegeist/Sitegeist.MoveAlong.git",
+      "url": "ssh://git@github.com:sitegeist/Sitegeist.MoveAlong.git",
       "type": "vcs"
     }
   ]
