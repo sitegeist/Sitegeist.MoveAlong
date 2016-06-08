@@ -2,7 +2,7 @@
     "name": "sitegeist/movealong",
     "type": "typo3-flow-package",
     "description": "Configure fallback nodes in case of 404",
-    "license": "GPL-3.0",
+    "license": "MIT",
     "require": {
         "typo3/flow": ">3.1.0"
     },
