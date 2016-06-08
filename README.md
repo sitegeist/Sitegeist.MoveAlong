@@ -1,6 +1,5 @@
 # Sitegeist.MoveAlong
-
-> Configure fallback nodes in case of 404
+### Configure fallback nodes in case of 404
 
 ## Summary
 
@@ -121,3 +120,6 @@ prototype(Sitegeist.MoveAlong:Match404Page) {
   condition.@process.isNotFoundDocument = ${value && q(node).property('is404Page') == true}
 }
 ```
+## License
+
+see [LICENSE file](LICENSE)
