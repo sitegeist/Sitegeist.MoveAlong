@@ -16,34 +16,7 @@ This package enables editable 404 pages. It allows you to configure several 404 
 
 ## Installation
 
-For now this package is not listed at packagist.org yet, so it needs to be configured via the `repositories` option in your composer.json.
-
-```json
-{
-  "repositories": [
-    {
-      "url": "ssh://git@github.com:sitegeist/Sitegeist.MoveAlong.git",
-      "type": "vcs"
-    }
-  ]
-}
-```
-
-You can then require it as a regular dependency:
-
-```json
-{
-  "dependencies": {
-    "sitegeist/movealong": "~1.0.0"
-  }
-}
-```
-
-After you finished configuring your composer.json, run the following command to retrieve the package:
-
-```shell
-composer update sitegeist/movealong
-```
+Sitegeist.MoveAlong is available via packagist. Just add `"sitegeist/movelong" : "~1.0"` to the require-dev section of the composer.json or run `composer require --dev sitegeist/movelong`. We use semantic-versioning so every breaking change will increase the major-version number.
 
 ## Usage
 
@@ -120,10 +93,6 @@ prototype(Sitegeist.MoveAlong:Match404Page) {
   condition.@process.isNotFoundDocument = ${value && q(node).property('is404Page') == true}
 }
 ```
-
-## Installation
-
-Sitegeist.MoveAlong is available via packagist. Just add `"sitegeist/movelong" : "~1.0"` to the require-dev section of the composer.json or run `composer require --dev sitegeist/movelong`. We use semantic-versioning so every breaking change will increase the major-version number.
 
 ## License
 
