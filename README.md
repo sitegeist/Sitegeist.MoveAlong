@@ -120,6 +120,11 @@ prototype(Sitegeist.MoveAlong:Match404Page) {
   condition.@process.isNotFoundDocument = ${value && q(node).property('is404Page') == true}
 }
 ```
+
+## Installation
+
+Sitegeist.MoveAlong is available via packagist. Just add `"sitegeist/movelong" : "~1.0"` to the require-dev section of the composer.json or run `composer require --dev sitegeist/movelong`. We use semantic-versioning so every breaking change will increase the major-version number.
+
 ## License
 
 see [LICENSE file](LICENSE)
