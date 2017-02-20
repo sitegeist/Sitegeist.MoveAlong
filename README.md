@@ -80,7 +80,7 @@ Sitegeist:
         ...
 ```
 
-### TypoScript
+### Fusion
 
 Since the fallback mechanism will cause Neos to think, that a node has been found, the system won't respond with a 404 status code anymore. Therefore, some TypoScript configuration is applied, to determine, whether we are on an error page and then send a 404 status code accordingly.
 
@@ -88,7 +88,7 @@ By default, that TypoScript will assume, that your error page will have a `uriPa
 
 If this is not the case for your configuration, you can simply apply a different rule for that by overriding the `Sitegeist.MoveAlong:Match404Page` prototype:
 
-```typoscript2
+```fusion
 prototype(Sitegeist.MoveAlong:Match404Page) {
   condition.@process.isNotFoundDocument = ${value && q(node).property('is404Page') == true}
 }
