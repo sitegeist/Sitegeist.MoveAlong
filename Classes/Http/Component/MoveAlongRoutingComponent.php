@@ -43,7 +43,7 @@ class MoveAlongRoutingComponent implements ComponentInterface
     public function handle(ComponentContext $componentContext)
     {
         $routingMatchResults = $componentContext->getParameter(RoutingComponent::class, 'matchResults');
-        if ($routingMatchResults !== NULL) {
+        if ($routingMatchResults !== null) {
             return;
         }
 
@@ -60,8 +60,12 @@ class MoveAlongRoutingComponent implements ComponentInterface
                     $uri->setFragment('');
 
                     $subRoutingMatchResults = $this->router->route(Request::create($uri));
-                    if ($subRoutingMatchResults !== NULL) {
-                        $componentContext->setParameter(RoutingComponent::class, 'matchResults', $subRoutingMatchResults);
+                    if ($subRoutingMatchResults !== null) {
+                        $componentContext->setParameter(
+                            RoutingComponent::class,
+                            'matchResults',
+                            $subRoutingMatchResults
+                        );
                         return;
                     }
                 }

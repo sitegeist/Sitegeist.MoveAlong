@@ -70,5 +70,4 @@ class RuleService
 
         return $this->sortedRules;
     }
-
 }
