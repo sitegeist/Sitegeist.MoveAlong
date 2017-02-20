@@ -13,9 +13,9 @@
  /**
   * Turn the response status code into a case
   */
-prototype(TYPO3.Neos:Page) {
+prototype(Page) {
   httpResponseHead {
-    statusCode = TYPO3.TypoScript:Case {
+    statusCode = Neos.Fusion:Case {
 
       //
       // Match pre-configured 404 Pages
@@ -34,7 +34,7 @@ prototype(TYPO3.Neos:Page) {
 /**
  * Apply 404 status code in case of hitting a pre-configured 404 page
  */
-prototype(Sitegeist.MoveAlong:Match404Page) < prototype(TYPO3.TypoScript:Matcher) {
+prototype(Sitegeist.MoveAlong:Match404Page) < prototype(Neos.Fusion:Matcher) {
   condition = TRUE
   condition.@process {
     featureIsEnabled = ${value && (Configuration.setting('Sitegeist.MoveAlong.enable') == true)}

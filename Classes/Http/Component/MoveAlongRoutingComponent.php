@@ -2,12 +2,12 @@
 
 namespace Sitegeist\MoveAlong\Http\Component;
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Http\Component\ComponentContext;
-use TYPO3\Flow\Http\Component\ComponentInterface;
-use TYPO3\Flow\Mvc\Routing\Router;
-use TYPO3\Flow\Mvc\Routing\RoutingComponent;
-use TYPO3\Flow\Http\Request;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Http\Component\ComponentContext;
+use Neos\Flow\Http\Component\ComponentInterface;
+use Neos\Flow\Mvc\Routing\Router;
+use Neos\Flow\Mvc\Routing\RoutingComponent;
+use Neos\Flow\Http\Request;
 
 use Sitegeist\MoveAlong\Domain\Service\RuleService;
 

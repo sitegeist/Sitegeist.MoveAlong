@@ -13,8 +13,8 @@ namespace Sitegeist\MoveAlong\Domain\Service;
  * LICENSE.md file that was distributed with this source code.
  */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Utility\PositionalArraySorter;
+use Neos\Flow\Annotations as Flow;
+use Neos\Utility\PositionalArraySorter;
 
 /**
  * @Flow\Scope("singleton")

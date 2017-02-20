@@ -4,7 +4,7 @@ Sitegeist:
     #  You need to active this feature explicitly in your site package
     #
 
-    enable: FALSE
+    enable: false
 
     #
     #  Define a couple of rules on how to determine your 404 page. This gives you the option
@@ -21,16 +21,16 @@ Sitegeist:
         # have a defaultSuffix it needs to be omitted
         target: '404'
 
-TYPO3:
+Neos:
   Neos:
     typoScript:
       autoInclude:
-        'Sitegeist.MoveAlong': TRUE
+        'Sitegeist.MoveAlong': true
 
   Flow:
     http:
       chain:
-        'process':
+        process:
           chain:
             'move-along':
               position: 'before dispatching'
