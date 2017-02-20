@@ -23,7 +23,7 @@ Sitegeist:
 
 Neos:
   Neos:
-    typoScript:
+    fusion:
       autoInclude:
         'Sitegeist.MoveAlong': true
 
