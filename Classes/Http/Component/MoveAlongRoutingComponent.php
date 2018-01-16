@@ -7,6 +7,8 @@ use Neos\Flow\Http\Component\ComponentContext;
 use Neos\Flow\Http\Component\ComponentInterface;
 use Neos\Flow\Mvc\Routing\Router;
 use Neos\Flow\Mvc\Routing\RoutingComponent;
+use Neos\Flow\Mvc\Routing\Dto\RouteContext;
+use Neos\Flow\Mvc\Routing\Dto\RouteParameters;
 use Neos\Flow\Http\Request;
 
 use Sitegeist\MoveAlong\Domain\Service\RuleService;
@@ -59,7 +61,13 @@ class MoveAlongRoutingComponent implements ComponentInterface
                     $uri->setQuery('');
                     $uri->setFragment('');
 
-                    $subRoutingMatchResults = $this->router->route(Request::create($uri));
+                    $moveAlongHttpRequest = Request::create(
+                        $uri
+                    );
+
+                    $moveAlongRouteContext = new RouteContext($moveAlongHttpRequest, RouteParameters::createEmpty());
+                    $subRoutingMatchResults = $this->router->route($moveAlongRouteContext);
+
                     if ($subRoutingMatchResults !== null) {
                         $componentContext->setParameter(
                             RoutingComponent::class,
