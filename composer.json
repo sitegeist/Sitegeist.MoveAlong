@@ -2,7 +2,7 @@
     "name": "sitegeist/movealong",
     "type": "neos-package",
     "description": "Configure fallback url-pathes that are evaluated in case no other route matches",
-    "license": "MIT",
+    "license": "GPL-3.0-or-later",
     "require": {
         "neos/neos": "^3.3 || ^4.0 || dev-master"
     },
