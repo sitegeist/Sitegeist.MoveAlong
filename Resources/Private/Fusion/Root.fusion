@@ -13,7 +13,7 @@
 /**
  * Turn the response status code into a case
  */
-prototype(Page) {
+prototype(Neos.Neos:Page) {
 	httpResponseHead {
 		statusCode = Neos.Fusion:Case {
 
