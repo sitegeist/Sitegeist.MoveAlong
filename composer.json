@@ -4,7 +4,8 @@
     "description": "Configure fallback url-pathes that are evaluated in case of 404",
     "license": "MIT",
     "require": {
-        "typo3/flow": ">4.0.0"
+        "typo3/flow": ">4.0.0",
+        "neos/neos": ">= 3.0 < 3.3"
     },
     "autoload": {
         "psr-4": {
