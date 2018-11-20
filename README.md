@@ -1,5 +1,6 @@
 # Sitegeist.MoveAlong
-### Configure fallback nodes in case of 404
+
+**Configure fallback nodes in case of 404**
 
 ## Summary
 
@@ -16,7 +17,7 @@ This package enables editable 404 pages. It allows you to configure several 404 
 
 ## Installation
 
-Sitegeist.MoveAlong is available via packagist. Just add `"sitegeist/movealong" : "~1.0"` to the `require` section of the composer.json or run `composer require sitegeist/movealong`. We use semantic-versioning so every breaking change will increase the major-version number.
+Sitegeist.MoveAlong is available via packagist. Just run `composer require sitegeist/movealong`. We use semantic-versioning so every breaking change will increase the major-version number.
 
 ## Usage
 
@@ -27,7 +28,7 @@ To activate Sitegeist.MoveAlong, the smallest configuration you're going to need
 ```yaml
 Sitegeist:
   MoveAlong:
-    enable: TRUE
+    enable: true
 ```
 
 By default, Sitegeist.MoveAlong will match any requestPath and map it to `/404`. You can configure your own rules to handle Dimensions for example:
@@ -96,9 +97,9 @@ Sitegeist:
 
 ### Fusion
 
-Since the fallback mechanism will cause Neos to think, that a node has been found, the system won't respond with a 404 status code anymore. Therefore, some TypoScript configuration is applied, to determine, whether we are on an error page and then send a 404 status code accordingly.
+Since the fallback mechanism will cause Neos to think, that a node has been found, the system won't respond with a 404 status code anymore. Therefore, some Fusion configuration is applied, to determine, whether we are on an error page and then send a 404 status code accordingly.
 
-By default, that TypoScript will assume, that your error page will have a `uriPathSegment` property that is set to `404` or `410`.
+By default, that Fusion will assume, that your error page will have a `uriPathSegment` property that is set to `404` or `410`.
 
 If this is not the case for your configuration, you can simply apply a different rule for that by overriding the `Sitegeist.MoveAlong:Match404Page` or the `Sitegeist.MoveAlong:Match410Page` prototype :
 
