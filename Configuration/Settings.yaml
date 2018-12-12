@@ -28,10 +28,10 @@ Neos:
         'Sitegeist.MoveAlong': true
 
   Flow:
-    http:
-      chain:
-        process:
-          chain:
-            'move-along':
-              position: 'before dispatching'
-              component: 'Sitegeist\MoveAlong\Http\Component\MoveAlongRoutingComponent'
+    error:
+      exceptionHandler:
+        renderingGroups:
+          notFoundExceptions:
+            matchingStatusCodes: [ 404, 410 ]
+            options:
+              viewClassName: \Sitegeist\MoveAlong\Error\FusionExceptionView
