@@ -1,0 +1,45 @@
+
+
+error = Neos.Fusion:Case {
+    @context.notFoundDocument = ${q(site).children('[instanceof Neos.Neos:Document]').filter('[uriPathSegment="404"]').get(0)}
+
+    4xx {
+        condition = ${statusCode >= 400 && statusCode < 500 && notfound}
+        renderer = Neos.Fusion:Renderer {
+            @context.node = ${notFoundDocument}
+            @context.documentNode = ${notFoundDocument}
+            renderPath = '/root'
+        }
+    }
+
+    default {
+        position = 'end 9999'
+        condition = true
+        renderer = Sitegeist.MoveAlong:ErrorMessage {
+            exception = ${exception}
+            renderingOptions = ${renderingOptions}
+            statusCode = ${statusCode}
+            statusMessage = ${statusMessage}
+            referenceCode = ${referenceCode}
+        }
+    }
+}
+
+prototype(Sitegeist.MoveAlong:ErrorMessage) < prototype(Neos.Fusion:Component) {
+    exception = null
+    renderingOptions = null
+    statusCode = null
+    statusMessage = null
+    referenceCode = null
+
+    renderer = Neos.Fusion:Template {
+        templatePath = 'resource://Neos.Neos/Private/Templates/Error/Index.html'
+        layoutRootPath = 'resource://Neos.Neos/Private/Layouts/'
+
+        exception = ${props.exception}
+        renderingOptions = ${props.renderingOptions}
+        statusCode = ${props.statusCode}
+        statusMessage = ${props.statusMessage}
+        referenceCode = ${props.referenceCode}
+    }
+}
