@@ -4,7 +4,7 @@ error = Neos.Fusion:Case {
     @context.notFoundDocument = ${q(site).children('[instanceof Neos.Neos:Document]').filter('[uriPathSegment="404"]').get(0)}
 
     4xx {
-        condition = ${statusCode >= 400 && statusCode < 500 && notfound}
+        condition = ${statusCode >= 400 && statusCode < 500 && notFoundDocument}
         renderer = Neos.Fusion:Renderer {
             @context.node = ${notFoundDocument}
             @context.documentNode = ${notFoundDocument}
