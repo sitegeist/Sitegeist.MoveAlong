@@ -13,6 +13,13 @@ use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\I18n\Locale;
 use Neos\Flow\I18n\Service;
 
+use Neos\Flow\Http\Request;
+use Neos\Flow\Http\Response;
+use Neos\Flow\Mvc\ActionRequest;
+use Neos\Flow\Mvc\Routing\UriBuilder;
+use Neos\Flow\Mvc\Controller\ControllerContext;
+use Neos\Flow\Mvc\Controller\Arguments;
+
 class FusionExceptionView extends AbstractView implements ViewInterface
 {
     /**
@@ -120,8 +127,21 @@ class FusionExceptionView extends AbstractView implements ViewInterface
      */
     protected function getFusionRuntime(NodeInterface $currentSiteNode)
     {
+        $httpRequest = Request::createFromEnvironment();
+        $request = new ActionRequest($httpRequest);
+        $request->setControllerPackageKey('Neos.Neos');
+        $request->setFormat('html');
+        $uriBuilder = new UriBuilder();
+        $uriBuilder->setRequest($request);
+        $controllerContext = new ControllerContext(
+            $request,
+            new Response(),
+            new Arguments([]),
+            $uriBuilder
+        );
+
         if ($this->fusionRuntime === null) {
-            $this->fusionRuntime = $this->fusionService->createRuntime($currentSiteNode, $this->controllerContext);
+            $this->fusionRuntime = $this->fusionService->createRuntime($currentSiteNode, $controllerContext);
 
             if (isset($this->options['enableContentCache']) && $this->options['enableContentCache'] !== null) {
                 $this->fusionRuntime->setEnableContentCache($this->options['enableContentCache']);
