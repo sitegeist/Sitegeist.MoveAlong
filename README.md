@@ -2,6 +2,64 @@
 
 **Render 4xx status pages via fusion**
 
+### Configuration
+
+The status codes that are handled via fusion error-rendering
+can be controlled via settings.
+
+```yaml
+Neos:
+  Flow:
+    error:
+      exceptionHandler:
+        renderingGroups:
+          notFoundExceptions:
+            matchingStatusCodes: [ 403, 404, 410 ]
+```
+
+The fusion code that actually renders the error-message.
+
+```fusion
+#
+# Main error matcher
+#
+error = Neos.Fusion:Case {
+
+	#
+	# Find the document to render in case of 404
+	#
+	@context.notFoundDocument = ${q(site).children('[instanceof Neos.Neos:Document]').filter('[uriPathSegment="404"]').get(0)}
+
+	#
+	# Custom matcher for 404 status
+	#
+	4xx {
+		condition = ${statusCode >= 400 && statusCode < 500 && notFoundDocument}
+		renderer = Neos.Fusion:Renderer {
+			@context.node = ${notFoundDocument}
+			@context.documentNode = ${notFoundDocument}
+			renderPath = '/root'
+		}
+	}
+
+	#
+	# Default rendering of classic error-message
+	#
+	default {
+		position = 'end 9999'
+		condition = true
+		renderer = Sitegeist.MoveAlong:ErrorMessage {
+			exception = ${exception}
+			renderingOptions = ${renderingOptions}
+			statusCode = ${statusCode}
+			statusMessage = ${statusMessage}
+			referenceCode = ${referenceCode}
+		}
+	}
+}
+
+```
+
 ### Authors & Sponsors
 
 * Wilhelm Behncke - behncke@sitegeist.de
