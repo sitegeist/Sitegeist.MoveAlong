@@ -1,6 +1,6 @@
 error = Neos.Fusion:Case {
     default {
-        position = 'end 9999'
+        @position = 'end 9999'
         condition = true
         renderer = Sitegeist.MoveAlong:ErrorMessage
     }

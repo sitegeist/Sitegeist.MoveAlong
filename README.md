@@ -34,6 +34,7 @@ error = Neos.Fusion:Case {
 	# Custom matcher for 404 status
 	#
 	4xx {
+		@position = 'start'
 		condition = ${statusCode >= 400 && statusCode < 500 && notFoundDocument}
 		renderer = Neos.Fusion:Renderer {
 			@context.node = ${notFoundDocument}
@@ -46,7 +47,7 @@ error = Neos.Fusion:Case {
 	# Default rendering of classic error-message
 	#
 	default {
-		position = 'end 9999'
+		@position = 'end 9999'
 		condition = true
 		renderer = Sitegeist.MoveAlong:ErrorMessage
 	}
