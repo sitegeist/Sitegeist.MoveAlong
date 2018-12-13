@@ -48,13 +48,7 @@ error = Neos.Fusion:Case {
 	default {
 		position = 'end 9999'
 		condition = true
-		renderer = Sitegeist.MoveAlong:ErrorMessage {
-			exception = ${exception}
-			renderingOptions = ${renderingOptions}
-			statusCode = ${statusCode}
-			statusMessage = ${statusMessage}
-			referenceCode = ${referenceCode}
-		}
+		renderer = Sitegeist.MoveAlong:ErrorMessage
 	}
 }
 
