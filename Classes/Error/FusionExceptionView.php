@@ -13,6 +13,8 @@ use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\I18n\Locale;
 use Neos\Flow\I18n\Service;
 
+use Neos\Flow\Security\Context;
+use Neos\Flow\ObjectManagement\ObjectManagerInterface;
 use Neos\Flow\Http\Request;
 use Neos\Flow\Http\Response;
 use Neos\Flow\Mvc\ActionRequest;
@@ -22,6 +24,12 @@ use Neos\Flow\Mvc\Controller\Arguments;
 
 class FusionExceptionView extends AbstractView implements ViewInterface
 {
+    /**
+     * @var ObjectManagerInterface
+     * @Flow\Inject
+     */
+    protected $objectManager;
+
     /**
      * @Flow\Inject
      * @var Service
@@ -72,10 +80,26 @@ class FusionExceptionView extends AbstractView implements ViewInterface
             $site = $this->siteRepository->findDefault();
         }
 
+        $httpRequest = Request::createFromEnvironment();
+        $request = new ActionRequest($httpRequest);
+        $request->setControllerPackageKey('Neos.Neos');
+        $request->setFormat('html');
+        $uriBuilder = new UriBuilder();
+        $uriBuilder->setRequest($request);
+        $controllerContext = new ControllerContext(
+            $request,
+            new Response(),
+            new Arguments([]),
+            $uriBuilder
+        );
+
+        $securityContext = $this->objectManager->get(Context::class);
+        $securityContext->setRequest($request);
+
         $contentContext = $this->contentContextFactory->create(['currentSite' => $site]);
         $currentSiteNode = $contentContext->getCurrentSiteNode();
 
-        $fusionRuntime = $this->getFusionRuntime($currentSiteNode);
+        $fusionRuntime = $this->getFusionRuntime($currentSiteNode, $controllerContext);
 
         $dimensions = $currentSiteNode->getContext()->getDimensions();
         if (array_key_exists('language', $dimensions) && $dimensions['language'] !== array()) {
@@ -123,22 +147,12 @@ class FusionExceptionView extends AbstractView implements ViewInterface
 
     /**
      * @param NodeInterface $currentSiteNode
+     * @param ControllerContext $controllerContext
      * @return \Neos\Fusion\Core\Runtime
      */
-    protected function getFusionRuntime(NodeInterface $currentSiteNode)
+    protected function getFusionRuntime(NodeInterface $currentSiteNode, $controllerContext)
     {
-        $httpRequest = Request::createFromEnvironment();
-        $request = new ActionRequest($httpRequest);
-        $request->setControllerPackageKey('Neos.Neos');
-        $request->setFormat('html');
-        $uriBuilder = new UriBuilder();
-        $uriBuilder->setRequest($request);
-        $controllerContext = new ControllerContext(
-            $request,
-            new Response(),
-            new Arguments([]),
-            $uriBuilder
-        );
+
 
         if ($this->fusionRuntime === null) {
             $this->fusionRuntime = $this->fusionService->createRuntime($currentSiteNode, $controllerContext);
