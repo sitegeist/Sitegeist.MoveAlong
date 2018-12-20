@@ -2,6 +2,7 @@
 namespace Sitegeist\MoveAlong\Error;
 
 use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Core\Bootstrap;
 use Neos\Flow\Mvc\View\ViewInterface;
 use Neos\Flow\Mvc\View\AbstractView;
 use Neos\Neos\Domain\Service\FusionService;
@@ -12,10 +13,8 @@ use Neos\Neos\Domain\Service\ContentContextFactory;
 use Neos\ContentRepository\Domain\Model\NodeInterface;
 use Neos\Flow\I18n\Locale;
 use Neos\Flow\I18n\Service;
-
 use Neos\Flow\Security\Context;
 use Neos\Flow\ObjectManagement\ObjectManagerInterface;
-use Neos\Flow\Http\Request;
 use Neos\Flow\Http\Response;
 use Neos\Flow\Mvc\ActionRequest;
 use Neos\Flow\Mvc\Routing\UriBuilder;
@@ -24,6 +23,13 @@ use Neos\Flow\Mvc\Controller\Arguments;
 
 class FusionExceptionView extends AbstractView implements ViewInterface
 {
+
+    /**
+     * @Flow\Inject
+     * @var Bootstrap
+     */
+    protected $bootstrap;
+
     /**
      * @var ObjectManagerInterface
      * @Flow\Inject
@@ -80,7 +86,7 @@ class FusionExceptionView extends AbstractView implements ViewInterface
             $site = $this->siteRepository->findDefault();
         }
 
-        $httpRequest = Request::createFromEnvironment();
+        $httpRequest = $this->bootstrap->getActiveRequestHandler()->getHttpRequest();
         $request = new ActionRequest($httpRequest);
         $request->setControllerPackageKey('Neos.Neos');
         $request->setFormat('html');
