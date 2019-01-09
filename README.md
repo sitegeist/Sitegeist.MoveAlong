@@ -1,12 +1,59 @@
 # Sitegeist.MoveAlong
 
-**Configure fallback nodes in case of 404**
+**Render 4xx status pages via fusion**
 
-## Summary
+### Configuration
 
-This package enables editable 404 pages. It allows you to configure several 404 pages in the page tree, in case you need different content or styling in different situations. 
+The status codes that are handled via fusion error-rendering
+can be controlled via settings.
 
-**ATTENTION: This package will add a http-component via Settings.yaml. This component will try to find a matching 404 page for the current path an override the http-request accordingly.** 
+```yaml
+Neos:
+  Flow:
+    error:
+      exceptionHandler:
+        renderingGroups:
+          notFoundExceptions:
+            matchingStatusCodes: [ 403, 404, 410 ]
+```
+
+The fusion code that actually renders the error-message.
+
+```fusion
+#
+# Main error matcher
+#
+error = Neos.Fusion:Case {
+
+	#
+	# Find the document to render in case of 404
+	#
+	@context.notFoundDocument = ${q(site).children('[instanceof Neos.Neos:Document]').filter('[uriPathSegment="404"]').get(0)}
+
+	#
+	# Custom matcher for 404 status
+	#
+	4xx {
+		@position = 'start'
+		condition = ${statusCode >= 400 && statusCode < 500 && notFoundDocument}
+		renderer = Neos.Fusion:Renderer {
+			@context.node = ${notFoundDocument}
+			@context.documentNode = ${notFoundDocument}
+			renderPath = '/root'
+		}
+	}
+
+	#
+	# Default rendering of classic error-message
+	#
+	default {
+		@position = 'end 9999'
+		condition = true
+		renderer = Sitegeist.MoveAlong:ErrorMessage
+	}
+}
+
+```
 
 ### Authors & Sponsors
 
@@ -18,96 +65,6 @@ This package enables editable 404 pages. It allows you to configure several 404 
 ## Installation
 
 Sitegeist.MoveAlong is available via packagist. Just run `composer require sitegeist/movealong`. We use semantic-versioning so every breaking change will increase the major-version number.
-
-## Usage
-
-### Settings
-
-To activate Sitegeist.MoveAlong, the smallest configuration you're going to need is the following:
-
-```yaml
-Sitegeist:
-  MoveAlong:
-    enable: true
-```
-
-By default, Sitegeist.MoveAlong will match any requestPath and map it to `/404`. You can configure your own rules to handle Dimensions for example:
-
-```yaml
-Sitegeist:
-  MoveAlong:
-    rules:
-      english:
-        pattern: 'en\/.*'
-        target: 'en/404'
-      german:
-        pattern: 'de\/.*'
-        target: 'de/404'
-```
-
-The rule pattern and targets support pattern matching and replacement:
-
-```yaml
-Sitegeist:
-  MoveAlong:
-    rules:
-      main:
-        pattern: '^(en|de)\/.*'
-        target: '$1/404'
-```
-
-!!! Regardles of any existing `defaultUriSuffix` configuration, you need to omit that uri part. So, if your 404 page is reachable via `404.html`, you need to configure `404` as your target.
-
-If you just want to override the default behavior, you can overwrite the pre-configured `all` rule:
-
-```yaml
-Sitegeist:
-  MoveAlong:
-    rules:
-      all:
-        target: 'NotFound' # will display NotFound.html
-```
-
-If you want to change the order in which the rules apply, you can add a `position` argument to your rule configuration:
-
-```yaml
-Sitegeist:
-  MoveAlong:
-    rules:
-      english:
-        ...
-      german:
-        position: 'before english'
-        ...
-```
-
-If you want to return a 410-gone status for an obsolete section you can configure this:
-
-```yaml
-Sitegeist:
-  MoveAlong:
-    rules:
-      fileadmin:
-        position: 'before all'
-        pattern: '^fileadmin.*'
-        target: '410'
-      all:
-        ...
-```
-
-### Fusion
-
-Since the fallback mechanism will cause Neos to think, that a node has been found, the system won't respond with a 404 status code anymore. Therefore, some Fusion configuration is applied, to determine, whether we are on an error page and then send a 404 status code accordingly.
-
-By default, that Fusion will assume, that your error page will have a `uriPathSegment` property that is set to `404` or `410`.
-
-If this is not the case for your configuration, you can simply apply a different rule for that by overriding the `Sitegeist.MoveAlong:Match404Page` or the `Sitegeist.MoveAlong:Match410Page` prototype :
-
-```fusion
-prototype(Sitegeist.MoveAlong:Match404Page) {
-  condition.@process.isNotFoundDocument = ${value && q(node).property('is404Page') == true}
-}
-```
 
 ## License
 
