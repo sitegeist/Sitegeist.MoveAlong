@@ -7,6 +7,7 @@ use Neos\Flow\Http\Component\ComponentContext;
 use Neos\Flow\Http\Component\ComponentInterface;
 use Neos\Flow\Mvc\Routing\Router;
 use Neos\Flow\Mvc\Routing\RoutingComponent;
+use Neos\Flow\Mvc\Exception\NoMatchingRouteException;
 use Neos\Flow\Mvc\Routing\Dto\RouteContext;
 use Neos\Flow\Mvc\Routing\Dto\RouteParameters;
 use Neos\Flow\Http\Request;
@@ -66,7 +67,11 @@ class MoveAlongRoutingComponent implements ComponentInterface
                     );
 
                     $moveAlongRouteContext = new RouteContext($moveAlongHttpRequest, RouteParameters::createEmpty());
-                    $subRoutingMatchResults = $this->router->route($moveAlongRouteContext);
+                    try {
+                        $subRoutingMatchResults = $this->router->route($moveAlongRouteContext);
+                    } catch (NoMatchingRouteException $e) {
+                        continue;
+                    }
 
                     if ($subRoutingMatchResults !== null) {
                         $componentContext->setParameter(
