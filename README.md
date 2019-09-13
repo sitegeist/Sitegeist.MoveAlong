@@ -1,3 +1,4 @@
+# DEPRECTAED The solution was added to the Neos Core in version 4.3 see https://neos.readthedocs.io/en/stable/Appendixes/ReleaseNotes/430.html?highlight=error#native-404-error-rendering-that-can-be-controlled-via-fusion
 # Sitegeist.MoveAlong
 
 **Render 4xx status pages via fusion**
