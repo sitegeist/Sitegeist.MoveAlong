@@ -21,11 +21,13 @@ prototype(Neos.Neos:Page) {
 			// Match pre-configured 404 Pages
 			//
 			is404Page = Sitegeist.MoveAlong:Match404Page
+			is404Page.@position = 'start'
 
 			//
 			// Match pre-configured 410 Pages
 			//
 			is410Page = Sitegeist.MoveAlong:Match410Page
+			is404Page.@position = 'after is404Page'
 
 			default {
 				@position = 'end'
